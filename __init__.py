@@ -21,7 +21,6 @@ class SampleApp(Tk):
         self._frame = new_frame
         self._frame.pack()
 
-
 class StartPage(Frame):
     def __init__(self, master):
         Frame.__init__(self, master, width=750, height=400)
@@ -46,44 +45,124 @@ class question_page(Frame):
         self.font = font.Font(family='Helvetica', size=25)
         self.button_font = font.Font(family='Helvetica', size=15)
 
-
-
         self.rq_int = random.sample(range(1,5), 1)
 
+        self.question_func()
+        self.A_func()
+        self.B_func()
+        self.C_func()
+        self.D_func()
+
+
+
+
+
+    def question_func(self):
         for row in c.execute('SELECT question FROM questions WHERE rowid = ?', (self.rq_int[0],)):
-            question = Label(self, text=row, font=self.font, bg="#1c1b1c", fg="#ffffff")
-            question.place(relx=0.5, rely=0.05, anchor=CENTER)
-
+            if self.rq_int[0] == 1:
+                self.question1 = Label(self, text=row, font=self.font, bg="#1c1b1c", fg="#ffffff")
+                self.question1.place(relx=0.5, rely=0.05, anchor=CENTER)
+            if self.rq_int[0] == 2:
+                self.question2 = Label(self, text=row, font=self.font, bg="#1c1b1c", fg="#ffffff")
+                self.question2.place(relx=0.5, rely=0.05, anchor=CENTER)
+            if self.rq_int[0] == 3:
+                self.question3 = Label(self, text=row, font=self.font, bg="#1c1b1c", fg="#ffffff")
+                self.question3.place(relx=0.5, rely=0.05, anchor=CENTER)
+            if self.rq_int[0] == 4:
+                self.question4 = Label(self, text=row, font=self.font, bg="#1c1b1c", fg="#ffffff")
+                self.question4.place(relx=0.5, rely=0.05, anchor=CENTER)
+            if self.rq_int[0] == 5:
+                self.question5 = Label(self, text=row, font=self.font, bg="#1c1b1c", fg="#ffffff")
+                self.question5.place(relx=0.5, rely=0.05, anchor=CENTER)
+    
+    def A_func(self):
         for row in c.execute('SELECT answers1 FROM questions WHERE rowid = ?', (self.rq_int[0],)):
-            A = Button(self, text=row, bg="#1c1b1c", fg="#ffffff", font=self.button_font, activebackground="#4a4e54", activeforeground="#ffffff")
-            A.place(relx=0.2, rely=0.25, anchor=CENTER)
-
+            if self.rq_int[0] == 1:
+                self.A1 = Button(self, text=row, bg="#1c1b1c", fg="#ffffff", font=self.button_font, activebackground="#4a4e54", activeforeground="#ffffff", command=self.incorrect)
+                self.A1.place(relx=0.2, rely=0.25, anchor=CENTER)
+            if self.rq_int[0] == 2:
+                self.A2 = Button(self, text=row, bg="#1c1b1c", fg="#ffffff", font=self.button_font, activebackground="#4a4e54", activeforeground="#ffffff", command=self.incorrect)
+                self.A2.place(relx=0.2, rely=0.25, anchor=CENTER)
+            if self.rq_int[0] == 3:
+                self.A3 = Button(self, text=row, bg="#1c1b1c", fg="#ffffff", font=self.button_font, activebackground="#4a4e54", activeforeground="#ffffff", command=self.correct)
+                self.A3.place(relx=0.2, rely=0.25, anchor=CENTER)
+            if self.rq_int[0] == 4:
+                self.A4 = Button(self, text=row, bg="#1c1b1c", fg="#ffffff", font=self.button_font, activebackground="#4a4e54", activeforeground="#ffffff", command=self.incorrect)
+                self.A4.place(relx=0.2, rely=0.25, anchor=CENTER)
+            if self.rq_int[0] == 5:
+                self.A5 = Button(self, text=row, bg="#1c1b1c", fg="#ffffff", font=self.button_font, activebackground="#4a4e54", activeforeground="#ffffff", command=self.correct)
+                self.A5.place(relx=0.2, rely=0.25, anchor=CENTER)
+    
+    def B_func(self):
         for row in c.execute('SELECT answers2 FROM questions WHERE rowid = ?', (self.rq_int[0],)):
-            B = Button(self, text=row,bg="#1c1b1c", fg="#ffffff", font=self.button_font, activebackground="#4a4e54", activeforeground="#ffffff")
-            B.place(relx=0.2, rely=0.45, anchor=CENTER)
-
+            if self.rq_int[0] == 1:
+                self.B1 = Button(self, text=row,bg="#1c1b1c", fg="#ffffff", font=self.button_font, activebackground="#4a4e54", activeforeground="#ffffff", command=self.correct)
+                self.B1.place(relx=0.2, rely=0.45, anchor=CENTER)
+            if self.rq_int[0] == 2:
+                self.B2 = Button(self, text=row,bg="#1c1b1c", fg="#ffffff", font=self.button_font, activebackground="#4a4e54", activeforeground="#ffffff", command=self.incorrect)
+                self.B2.place(relx=0.2, rely=0.45, anchor=CENTER)
+            if self.rq_int[0] == 3:
+                self.B3 = Button(self, text=row,bg="#1c1b1c", fg="#ffffff", font=self.button_font, activebackground="#4a4e54", activeforeground="#ffffff", command=self.incorrect)
+                self.B3.place(relx=0.2, rely=0.45, anchor=CENTER)
+            if self.rq_int[0] == 4:
+                self.B4 = Button(self, text=row,bg="#1c1b1c", fg="#ffffff", font=self.button_font, activebackground="#4a4e54", activeforeground="#ffffff", command=self.incorrect)
+                self.B4.place(relx=0.2, rely=0.45, anchor=CENTER)
+            if self.rq_int[0] == 5:
+                self.B5 = Button(self, text=row,bg="#1c1b1c", fg="#ffffff", font=self.button_font, activebackground="#4a4e54", activeforeground="#ffffff", command=self.incorrect)
+                self.B5.place(relx=0.2, rely=0.45, anchor=CENTER)
+    
+    def C_func(self):
         for row in c.execute('SELECT answers3 FROM questions WHERE rowid = ?', (self.rq_int[0],)):
-            C = Button(self, text=row,bg="#1c1b1c", fg="#ffffff", font=self.button_font, activebackground="#4a4e54", activeforeground="#ffffff")
-            C.place(relx=0.2, rely=0.65, anchor=CENTER)
+            if self.rq_int[0] == 1:
+                self.C1 = Button(self, text=row,bg="#1c1b1c", fg="#ffffff", font=self.button_font, activebackground="#4a4e54", activeforeground="#ffffff", command=self.incorrect)
+                self.C1.place(relx=0.2, rely=0.65, anchor=CENTER)
+            if self.rq_int[0] == 2:
+                self.C2 = Button(self, text=row,bg="#1c1b1c", fg="#ffffff", font=self.button_font, activebackground="#4a4e54", activeforeground="#ffffff", command=self.correct)
+                C2.place(relx=0.2, rely=0.65, anchor=CENTER)
+            if self.rq_int[0] == 3:
+                C3 = Button(self, text=row,bg="#1c1b1c", fg="#ffffff", font=self.button_font, activebackground="#4a4e54", activeforeground="#ffffff", command=self.incorrect)
+                C3.place(relx=0.2, rely=0.65, anchor=CENTER)
+            if self.rq_int[0] == 4:
+                C4 = Button(self, text=row,bg="#1c1b1c", fg="#ffffff", font=self.button_font, activebackground="#4a4e54", activeforeground="#ffffff", command=self.incorrect)
+                C4.place(relx=0.2, rely=0.65, anchor=CENTER)
+            if self.rq_int[0] == 5:
+                C5 = Button(self, text=row,bg="#1c1b1c", fg="#ffffff", font=self.button_font, activebackground="#4a4e54", activeforeground="#ffffff", command=self.incorrect)
+                C5.place(relx=0.2, rely=0.65, anchor=CENTER)
 
+    def D_func(self):
         for row in c.execute('SELECT answers4 FROM questions WHERE rowid = ?', (self.rq_int[0],)):
-            D = Button(self, text=row,bg="#1c1b1c", fg="#ffffff", font=self.button_font, activebackground="#4a4e54", activeforeground="#ffffff")
-            D.place(relx=0.2, rely=0.85, anchor=CENTER)
+            if self.rq_int[0] == 1:
+                self.D1 = Button(self, text=row,bg="#1c1b1c", fg="#ffffff", font=self.button_font, activebackground="#4a4e54", activeforeground="#ffffff", command=self.incorrect)
+                self.D1.place(relx=0.2, rely=0.85, anchor=CENTER)
+            if self.rq_int[0] == 2:
+                self.D2 = Button(self, text=row,bg="#1c1b1c", fg="#ffffff", font=self.button_font, activebackground="#4a4e54", activeforeground="#ffffff", command=self.incorrect)
+                self.D2.place(relx=0.2, rely=0.85, anchor=CENTER)
+            if self.rq_int[0] == 3:
+                self.D3 = Button(self, text=row,bg="#1c1b1c", fg="#ffffff", font=self.button_font, activebackground="#4a4e54", activeforeground="#ffffff", command=self.incorrect)
+                self.D3.place(relx=0.2, rely=0.85, anchor=CENTER)
+            if self.rq_int[0] == 4:
+                self.D4 = Button(self, text=row,bg="#1c1b1c", fg="#ffffff", font=self.button_font, activebackground="#4a4e54", activeforeground="#ffffff", command=self.correct)
+                self.D4.place(relx=0.2, rely=0.85, anchor=CENTER)
+            if self.rq_int[0] == 5:
+                self.D5 = Button(self, text=row,bg="#1c1b1c", fg="#ffffff", font=self.button_font, activebackground="#4a4e54", activeforeground="#ffffff", command=self.incorrect)
+                self.D5.place(relx=0.2, rely=0.85, anchor=CENTER)
 
-        
+    def correct(self):
+        print("Correct")
+        if self.rq_int[0] == 1:
+            self.question1.destroy()
+            self.A1.destroy()
+            self.B1.destroy()
+            self.C1.destroy()
+            self.D1.destroy()
+    def incorrect(self):
+        print("Incorrect")
 
     def choose_question(self):
         question = self.rq_int[1]
 
         for row in c.execute('SELECT question FROM questions WHERE rowid = ?', (rq_int[1],)):
             print(row)
-
-
-
-
-
-        
-
 
 if __name__ == "__main__":
     conn.commit()
