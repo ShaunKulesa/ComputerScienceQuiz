@@ -48,7 +48,7 @@ class question_page(Frame):
         self.question_number = 0
         print(self.question_number)
 
-        self.rq_int = random.sample(range(1,5), 3)
+        self.rq_int = random.sample(range(1,6), 5)
         print(self.rq_int)
 
         self.question_func()
@@ -56,6 +56,9 @@ class question_page(Frame):
         self.B_func()
         self.C_func()
         self.D_func()
+
+        if self.question_number == 5:
+            print("game over")
 
     def question_func(self):
         for row in c.execute('SELECT question FROM questions WHERE rowid = ?', (self.rq_int[self.question_number],)):
@@ -74,6 +77,8 @@ class question_page(Frame):
             if self.rq_int[self.question_number] == 5:
                 self.question5 = Label(self, text=row, font=self.font, bg="#1c1b1c", fg="#ffffff")
                 self.question5.place(relx=0.5, rely=0.05, anchor=CENTER)
+
+        
     
     def A_func(self):
         for row in c.execute('SELECT answers1 FROM questions WHERE rowid = ?', (self.rq_int[self.question_number],)):
@@ -84,19 +89,19 @@ class question_page(Frame):
                 self.A2 = Button(self, text=row, bg="#1c1b1c", fg="#ffffff", font=self.button_font, activebackground="#4a4e54", activeforeground="#ffffff", command=self.incorrect)
                 self.A2.place(relx=0.2, rely=0.25, anchor=CENTER)
             if self.rq_int[self.question_number] == 3:
-                self.A3 = Button(self, text=row, bg="#1c1b1c", fg="#ffffff", font=self.button_font, activebackground="#4a4e54", activeforeground="#ffffff", command=self.correct)
+                self.A3 = Button(self, text=row, bg="#1c1b1c", fg="#ffffff", font=self.button_font, activebackground="#4a4e54", activeforeground="#ffffff", command=self.question3_correct)
                 self.A3.place(relx=0.2, rely=0.25, anchor=CENTER)
             if self.rq_int[self.question_number] == 4:
                 self.A4 = Button(self, text=row, bg="#1c1b1c", fg="#ffffff", font=self.button_font, activebackground="#4a4e54", activeforeground="#ffffff", command=self.incorrect)
                 self.A4.place(relx=0.2, rely=0.25, anchor=CENTER)
             if self.rq_int[self.question_number] == 5:
-                self.A5 = Button(self, text=row, bg="#1c1b1c", fg="#ffffff", font=self.button_font, activebackground="#4a4e54", activeforeground="#ffffff", command=self.correct)
+                self.A5 = Button(self, text=row, bg="#1c1b1c", fg="#ffffff", font=self.button_font, activebackground="#4a4e54", activeforeground="#ffffff", command=self.question5_correct)
                 self.A5.place(relx=0.2, rely=0.25, anchor=CENTER)
     
     def B_func(self):
         for row in c.execute('SELECT answers2 FROM questions WHERE rowid = ?', (self.rq_int[self.question_number],)):
             if self.rq_int[self.question_number] == 1:
-                self.B1 = Button(self, text=row,bg="#1c1b1c", fg="#ffffff", font=self.button_font, activebackground="#4a4e54", activeforeground="#ffffff", command=self.correct)
+                self.B1 = Button(self, text=row,bg="#1c1b1c", fg="#ffffff", font=self.button_font, activebackground="#4a4e54", activeforeground="#ffffff", command=self.question1_correct)
                 self.B1.place(relx=0.2, rely=0.45, anchor=CENTER)
             if self.rq_int[self.question_number] == 2:
                 self.B2 = Button(self, text=row,bg="#1c1b1c", fg="#ffffff", font=self.button_font, activebackground="#4a4e54", activeforeground="#ffffff", command=self.incorrect)
@@ -117,7 +122,7 @@ class question_page(Frame):
                 self.C1 = Button(self, text=row,bg="#1c1b1c", fg="#ffffff", font=self.button_font, activebackground="#4a4e54", activeforeground="#ffffff", command=self.incorrect)
                 self.C1.place(relx=0.2, rely=0.65, anchor=CENTER)
             if self.rq_int[self.question_number] == 2:
-                self.C2 = Button(self, text=row,bg="#1c1b1c", fg="#ffffff", font=self.button_font, activebackground="#4a4e54", activeforeground="#ffffff", command=self.correct)
+                self.C2 = Button(self, text=row,bg="#1c1b1c", fg="#ffffff", font=self.button_font, activebackground="#4a4e54", activeforeground="#ffffff", command=self.question2_correct)
                 self.C2.place(relx=0.2, rely=0.65, anchor=CENTER)
             if self.rq_int[self.question_number] == 3:
                 self.C3 = Button(self, text=row,bg="#1c1b1c", fg="#ffffff", font=self.button_font, activebackground="#4a4e54", activeforeground="#ffffff", command=self.incorrect)
@@ -141,91 +146,86 @@ class question_page(Frame):
                 self.D3 = Button(self, text=row,bg="#1c1b1c", fg="#ffffff", font=self.button_font, activebackground="#4a4e54", activeforeground="#ffffff", command=self.incorrect)
                 self.D3.place(relx=0.2, rely=0.85, anchor=CENTER)
             if self.rq_int[self.question_number] == 4:
-                self.D4 = Button(self, text=row,bg="#1c1b1c", fg="#ffffff", font=self.button_font, activebackground="#4a4e54", activeforeground="#ffffff", command=self.correct)
+                self.D4 = Button(self, text=row,bg="#1c1b1c", fg="#ffffff", font=self.button_font, activebackground="#4a4e54", activeforeground="#ffffff", command=self.question4_correct)
                 self.D4.place(relx=0.2, rely=0.85, anchor=CENTER)
             if self.rq_int[self.question_number] == 5:
                 self.D5 = Button(self, text=row,bg="#1c1b1c", fg="#ffffff", font=self.button_font, activebackground="#4a4e54", activeforeground="#ffffff", command=self.incorrect)
                 self.D5.place(relx=0.2, rely=0.85, anchor=CENTER)
 
-    def correct(self):
-        print("Correct")
-        if self.rq_int[self.question_number] == 1:
-            self.question1.destroy()
-            self.A1.destroy()
-            self.B1.destroy()
-            self.C1.destroy()
-            self.D1.destroy()
-            self.question_number = self.question_number + 1
-            print(self.question_number)
+    def question1_correct(self):
+        self.question1.destroy()
+        self.A1.destroy()
+        self.B1.destroy()
+        self.C1.destroy()
+        self.D1.destroy()
+        self.question_number = self.question_number + 1
+        print(self.question_number)
             
-            self.question_func()
-            self.A_func()
-            self.B_func()
-            self.C_func()
-            self.D_func()
+        self.question_func()
+        self.A_func()
+        self.B_func()
+        self.C_func()
+        self.D_func()
 
-        if self.rq_int[self.question_number] == 2:
-            self.question2.destroy()
-            self.A2.destroy()
-            self.B2.destroy()
-            self.C2.destroy()
-            self.D2.destroy()
-            self.question_number = self.question_number + 1
-            print(self.question_number)
+    def question2_correct(self):
+        self.question2.destroy()
+        self.A2.destroy()
+        self.B2.destroy()
+        self.C2.destroy()
+        self.D2.destroy()
+        self.question_number = self.question_number + 1
+        print(self.question_number)
 
-            self.question_func()
-            self.A_func()
-            self.B_func()
-            self.C_func()
-            self.D_func()
+        self.question_func()
+        self.A_func()
+        self.B_func()
+        self.C_func()
+        self.D_func()
 
-        if self.rq_int[self.question_number] == 3:
-            self.question3.destroy()
-            self.A3.destroy()
-            self.B3.destroy()
-            self.C3.destroy()
-            self.D3.destroy()
-            self.question_number = self.question_number + 1
-            print(self.question_number)
+    def question3_correct(self):
+        self.question3.destroy()
+        self.A3.destroy()
+        self.B3.destroy()
+        self.C3.destroy()
+        self.D3.destroy()
+        self.question_number = self.question_number + 1
+        print(self.question_number)
 
-            self.question_func()
-            self.A_func()
-            self.B_func()
-            self.C_func()
-            self.D_func()
+        self.question_func()
+        self.A_func()
+        self.B_func()
+        self.C_func()
+        self.D_func()
 
-        if self.rq_int[self.question_number] == 4:
-            self.question4.destroy()
-            self.A4.destroy()
-            self.B4.destroy()
-            self.C4.destroy()
-            self.D4.destroy()
-            self.question_number = self.question_number + 1
-            print(self.question_number)
+    def question4_correct(self):
+        self.question4.destroy()
+        self.A4.destroy()
+        self.B4.destroy()
+        self.C4.destroy()
+        self.D4.destroy()
+        self.question_number = self.question_number + 1
+        print(self.question_number)
 
-            self.question_func()
-            self.A_func()
-            self.B_func()
-            self.C_func()
-            self.D_func()
+        self.question_func()
+        self.A_func()
+        self.B_func()
+        self.C_func()
+        self.D_func()
 
-        if self.rq_int[self.question_number] == 5:
-            self.question5.destroy()
-            self.A5.destroy()
-            self.B5.destroy()
-            self.C5.destroy()
-            self.D5.destroy()
-            self.question_number = self.question_number + 1
-            print(self.question_number)
+    def question5_correct(self):
+        self.question5.destroy()
+        self.A5.destroy()
+        self.B5.destroy()
+        self.C5.destroy()
+        self.D5.destroy()
+        self.question_number = self.question_number + 1
+        print(self.question_number)
 
-            self.question_func()
-            self.A_func()
-            self.B_func()
-            self.C_func()
-            self.D_func()
-
-
-
+        self.question_func()
+        self.A_func()
+        self.B_func()
+        self.C_func()
+        self.D_func()
 
     def incorrect(self):
         print("Incorrect")
