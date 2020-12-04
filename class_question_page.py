@@ -31,7 +31,7 @@ class question_page(Frame):
         if self.question_number == 5:
             print("game over")
         else:
-            for row in c.execute('SELECT question FROM questions WHERE rowid = ?', (self.rq_int[self.question_number],)):
+            for row in c.execute('SELECT question FROM questions WHERE rowid = ?', (self.rq_int[self.question_number],)).fetchone():
                 if self.rq_int[self.question_number] == 1:
                     self.question1 = Label(self, text=row, font=self.font, bg="#1c1b1c", fg="#ffffff")
                     self.question1.place(relx=0.5, rely=0.05, anchor=CENTER)
@@ -54,7 +54,7 @@ class question_page(Frame):
         if self.question_number == 5:
             pass
         else:
-            for row in c.execute('SELECT answers1 FROM questions WHERE rowid = ?', (self.rq_int[self.question_number],)):
+            for row in c.execute('SELECT answers1 FROM questions WHERE rowid = ?', (self.rq_int[self.question_number],)).fetchone():
                 if self.rq_int[self.question_number] == 1:
                     self.A1 = Button(self, text=row, bg="#1c1b1c", fg="#ffffff", font=self.button_font, activebackground="#4a4e54", activeforeground="#ffffff", command=self.incorrect)
                     self.A1.place(relx=0.2, rely=0.25, anchor=CENTER)
@@ -75,7 +75,7 @@ class question_page(Frame):
         if self.question_number == 5:
             pass
         else:
-            for row in c.execute('SELECT answers2 FROM questions WHERE rowid = ?', (self.rq_int[self.question_number],)):
+            for row in c.execute('SELECT answers2 FROM questions WHERE rowid = ?', (self.rq_int[self.question_number],)).fetchone():
                 if self.rq_int[self.question_number] == 1:
                     self.B1 = Button(self, text=row,bg="#1c1b1c", fg="#ffffff", font=self.button_font, activebackground="#4a4e54", activeforeground="#ffffff", command=self.question1_correct)
                     self.B1.place(relx=0.2, rely=0.45, anchor=CENTER)
@@ -96,7 +96,7 @@ class question_page(Frame):
         if self.question_number == 5:
             pass
         else:
-            for row in c.execute('SELECT answers3 FROM questions WHERE rowid = ?', (self.rq_int[self.question_number],)):
+            for row in c.execute('SELECT answers3 FROM questions WHERE rowid = ?', (self.rq_int[self.question_number],)).fetchone():
                 if self.rq_int[self.question_number] == 1:
                     self.C1 = Button(self, text=row,bg="#1c1b1c", fg="#ffffff", font=self.button_font, activebackground="#4a4e54", activeforeground="#ffffff", command=self.incorrect)
                     self.C1.place(relx=0.2, rely=0.65, anchor=CENTER)
@@ -117,7 +117,7 @@ class question_page(Frame):
         if self.question_number == 5:
             pass
         else:
-            for row in c.execute('SELECT answers4 FROM questions WHERE rowid = ?', (self.rq_int[self.question_number],)):
+            for row in c.execute('SELECT answers4 FROM questions WHERE rowid = ?', (self.rq_int[self.question_number],)).fetchone():
                 if self.rq_int[self.question_number] == 1:
                     self.D1 = Button(self, text=row,bg="#1c1b1c", fg="#ffffff", font=self.button_font, activebackground="#4a4e54", activeforeground="#ffffff", command=self.incorrect)
                     self.D1.place(relx=0.2, rely=0.85, anchor=CENTER)
