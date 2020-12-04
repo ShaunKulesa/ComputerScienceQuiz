@@ -3,6 +3,7 @@ import tkinter.font as font
 import random
 import sqlite3
 
+
 conn = sqlite3.connect('questions.db')
  
 c = conn.cursor()
@@ -25,11 +26,20 @@ class question_page(Frame):
         self.C_func()
         self.D_func()
 
+    def switch_frame(self, frame_class):
+        """Destroys current frame and replaces it with a new one."""
+        new_frame = frame_class(self)
+        if self._frame is not None:
+            self._frame.destroy()
+        self._frame = new_frame
+        self._frame.pack()
+
         
     
     def question_func(self):
         if self.question_number == 5:
             print("game over")
+            self.switch_frame(StartPage)
         else:
             for row in c.execute('SELECT question FROM questions WHERE rowid = ?', (self.rq_int[self.question_number],)).fetchone():
                 if self.rq_int[self.question_number] == 1:
