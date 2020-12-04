@@ -1,6 +1,6 @@
 from tkinter import *
 import tkinter.font as font
-from class_question_page import question_page
+from class_question_page import question_page 
 
 class SampleApp(Tk):
     def __init__(self):
@@ -32,9 +32,11 @@ class StartPage(Frame):
 
         start_quiz_button = Button(self, text="Start Quiz", font=self.font, bg="#324ca8", fg="#ffffff", command=lambda: master.switch_frame(question_page))
         start_quiz_button.place(relx=0.5, rely=0.65, anchor=CENTER)
+        
 
 if __name__ == "__main__":
     
     app = SampleApp()
     app.mainloop()
+
     
