@@ -7,8 +7,6 @@ import time
 conn = sqlite3.connect('questions.db')
  
 c = conn.cursor()
-
-
 class SampleApp(Tk):
     def __init__(self):
         Tk.__init__(self)
@@ -36,7 +34,7 @@ class StartPage(Frame):
 
         title = Label(self, text="Computer Science Quiz!", font=self.font)
         title.place(relx=0.5, rely=0.05, anchor=CENTER)
-
+        
         start_quiz_button = Button(self, text="Start Quiz", font=self.font, bg="#324ca8", fg="#ffffff", command=lambda: master.switch_frame(question_page))
         start_quiz_button.place(relx=0.5, rely=0.65, anchor=CENTER)
 
@@ -46,19 +44,12 @@ class question_page(Frame):
         Frame.__init__(self, master, width=750, height=400, bg="#1c1b1c")
         self.font = font.Font(family='Helvetica', size=25)
         self.button_font = font.Font(family='Helvetica', size=15)
-
-
         self.rq_int = random.sample(range(1,6), 5)
         print(self.rq_int)
         self.question_number = 0
         self.question = self.rq_int[self.question_number]
-
-        self.question_func()
-        self.A_func()
-        self.B_func()
-        self.C_func()
-        self.D_func()
-
+        
+        self.add_question()
     def switch_frame(self, frame_class):
         """Destroys current frame and replaces it with a new one."""
         new_frame = frame_class(self)
@@ -67,8 +58,6 @@ class question_page(Frame):
         self._frame = new_frame
         self._frame.pack()
 
-        
-    
     def question_func(self):
         if self.question_number == 5:
             print("game over")
@@ -91,8 +80,6 @@ class question_page(Frame):
                     self.question5 = Label(self, text=row, font=self.font, bg="#1c1b1c", fg="#ffffff")
                     self.question5.place(relx=0.5, rely=0.05, anchor=CENTER)
 
-        
-    
     def A_func(self):
         if self.question_number == 5:
             pass
@@ -177,12 +164,15 @@ class question_page(Frame):
                     self.D5 = Button(self, text=row,bg="#1c1b1c", fg="#ffffff", font=self.button_font, activebackground="#4a4e54", activeforeground="#ffffff", command=self.question5_incorrect)
                     self.D5.place(relx=0.2, rely=0.85, anchor=CENTER)
 
-
     def question1_correct(self):
-        
+        self.question1.destroy()
+        self.A1.destroy()
+        self.B1.destroy()
+        self.C1.destroy()
+        self.D1.destroy()
         self.question_number = self.question_number + 1
         print(self.question_number)
-        self.add_questions()
+        self.add_question()
 
     def question2_correct(self):
         self.question2.destroy()
@@ -192,8 +182,7 @@ class question_page(Frame):
         self.D2.destroy()
         self.question_number = self.question_number + 1
         print(self.question_number)
-
-        self.add_questions()
+        self.add_question()
 
     def question3_correct(self):
         self.question3.destroy()
@@ -203,8 +192,7 @@ class question_page(Frame):
         self.D3.destroy()
         self.question_number = self.question_number + 1
         print(self.question_number)
-
-        self.add_questions()
+        self.add_question()
 
     def question4_correct(self):
         self.question4.destroy()
@@ -214,8 +202,7 @@ class question_page(Frame):
         self.D4.destroy()
         self.question_number = self.question_number + 1
         print(self.question_number)
-
-        self.add_questions()
+        self.add_question()
 
     def question5_correct(self):
         self.question5.destroy()
@@ -225,8 +212,7 @@ class question_page(Frame):
         self.D5.destroy()
         self.question_number = self.question_number + 1
         print(self.question_number)
-
-        self.add_questions()
+        self.add_question()
 
     def question1_incorrect(self):
         self.question1.destroy()
@@ -236,8 +222,7 @@ class question_page(Frame):
         self.D1.destroy()
         self.question_number = self.question_number + 1
         print(self.question_number)
-            
-        self.add_questions()
+        self.add_question()
 
     def question2_incorrect(self):
         self.question2.destroy()
@@ -247,8 +232,7 @@ class question_page(Frame):
         self.D2.destroy()
         self.question_number = self.question_number + 1
         print(self.question_number)
-
-        self.add_questions()
+        self.add_question()
 
     def question3_incorrect(self):
         self.question3.destroy()
@@ -258,8 +242,7 @@ class question_page(Frame):
         self.D3.destroy()
         self.question_number = self.question_number + 1
         print(self.question_number)
-
-        self.add_questions()
+        self.add_question()
 
     def question4_incorrect(self):
         self.question4.destroy()
@@ -269,8 +252,7 @@ class question_page(Frame):
         self.D4.destroy()
         self.question_number = self.question_number + 1
         print(self.question_number)
-
-        self.add_questions()
+        self.add_question()
 
     def question5_incorrect(self):
         self.question5.destroy()
@@ -280,28 +262,23 @@ class question_page(Frame):
         self.D5.destroy()
         self.question_number = self.question_number + 1
         print(self.question_number)
+        self.add_question()
 
-        self.add_questions()
-
-    def add_questions(self):
+    def add_question(self):
         self.question_func()
         self.A_func()
         self.B_func()
         self.C_func()
         self.D_func()
-    def delete_questions(self):
-        
+    
+    def delete_question(self):
         self.question1.destroy()
         self.A1.destroy()
         self.B1.destroy()
         self.C1.destroy()
         self.D1.destroy()
 
-
-        
-
 if __name__ == "__main__":
-    
     app = SampleApp()
     app.mainloop()
     conn.commit()
